@@ -4,6 +4,12 @@ import HashTag from "./HashTag";
 const ImageCard = ({ image }) => {
   const tags = image.tags.split(", ");
 
+  const formatNumber = (number) => {
+    return number.toLocaleString(navigator.language, {
+      minimumFractionDigits: 0,
+    });
+  };
+
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg">
       <img src={image.webformatURL} alt="" className="w-full" />
@@ -14,15 +20,15 @@ const ImageCard = ({ image }) => {
         <ul>
           <li>
             <strong>Views: </strong>
-            {image.views}
+            {formatNumber(image.views)}
           </li>
           <li>
             <strong>Downloads: </strong>
-            {image.downloads}
+            {formatNumber(image.downloads)}
           </li>
           <li>
             <strong>Likes: </strong>
-            {image.likes}
+            {formatNumber(image.likes)}
           </li>
         </ul>
       </div>
