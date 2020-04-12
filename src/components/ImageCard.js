@@ -1,6 +1,9 @@
 import React from "react";
+import HashTag from "./HashTag";
 
 const ImageCard = ({ image }) => {
+  const tags = image.tags.split(", ");
+
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg">
       <img src={image.webformatURL} alt="" className="w-full" />
@@ -24,6 +27,9 @@ const ImageCard = ({ image }) => {
         </ul>
       </div>
       <div className="px-4 py-4">
+        {tags.map((tag, index) => (
+          <HashTag key={`${image.id}_${index}`} tag={tag} />
+        ))}
       </div>
     </div>
   );
