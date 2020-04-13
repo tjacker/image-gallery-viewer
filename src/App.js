@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ImageCard from "./components/ImageCard";
+import LoadingSpinner from "./components/LoadingSpinner";
 
 function App() {
   const [images, setImages] = useState([]);
@@ -25,12 +26,15 @@ function App() {
   }, [url, term]);
 
   return (
-    <div className="container mx-auto">
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : (
       <div className="grid grid-cols-3 gap-4">
         {images.map((image) => (
           <ImageCard key={image.id} image={image} />
         ))}
       </div>
+      )}
     </div>
   );
 }
