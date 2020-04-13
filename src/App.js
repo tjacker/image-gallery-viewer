@@ -7,19 +7,13 @@ function App() {
   const [images, setImages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  const [url, setUrl] = useState(
-    `https://pixabay.com/api/?key=${process.env.REACT_APP_API_KEY}&image_type=photo&pretty=true`
-  );
-
-  const handleSearch = (text) => {
-    setSearchTerm(text);
-    setUrl(`${url}&q=${searchTerm}`);
-  };
 
   useEffect(() => {
     const fetchData = async () => {
+      const url = `https://pixabay.com/api/?key=${process.env.REACT_APP_API_KEY}&image_type=photo&pretty=true`;
+
       try {
-        const response = await fetch(url);
+        const response = await fetch(`${url}&q=${searchTerm}`);
         const data = await response.json();
 
         setImages(data.hits);
@@ -29,11 +23,11 @@ function App() {
       }
     };
     fetchData();
-  }, [url]);
+  }, [searchTerm]);
 
   return (
     <div className="container my-10 mx-auto">
-      <ImageSearch searchTerm={handleSearch} />
+      <ImageSearch searchTerm={(text) => setSearchTerm(text)} />
 
       {isLoading ? (
         <LoadingSpinner />
